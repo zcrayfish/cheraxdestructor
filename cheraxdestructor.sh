@@ -105,8 +105,6 @@ readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/
 if [ "$isdumb" = "true" ] ; then
   precontent=$(echo "$xyzzy" | base64 -d)
 else
-  #precontent=$(echo "$xyzzy" | sed -n 's/.*<PRE>\(.*\)<\/PRE>.*/\1/p')
-  #precontent=$(echo "$xyzzy" | xargs | grep -E -o "<pre>.*?</pre>")
   precontent="$xyzzy"
 fi
 
