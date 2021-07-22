@@ -70,8 +70,6 @@ readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/
 		    mimetype="20 message/rfc822";;
 		/P*)
 		    mimetype="20 application/pdf";;
-		/d*)
-		    mimetype="20 application/pdf";;
 		/g*)
 		    mimetype="20 image/gif";;
 		/h*|/H*)
