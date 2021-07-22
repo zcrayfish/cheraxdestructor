@@ -100,7 +100,7 @@ readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/
 
 ###OUTPUT SECTION###
 
-#We'll use the output of Lynx or curl to determine if gopher content is 404d
+#We'll use the output of curl to determine if gopher content is 404d
 #Non gophermap content may be binary, base64 it so the shell can deal with it
 if [ "$isdumb" = "true" ] ; then
   precontent=$(echo "$xyzzy" | base64 -d)
