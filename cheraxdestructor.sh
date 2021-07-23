@@ -22,13 +22,14 @@ test "$?" != "0" && exit
 # Reject requests with garbage past the URL.
 test ! -z "$badclient" && printf '%s\15\12' "59 BAD REQUEST; Garbage past URL in request." && exit
 # See if request is for defined FQDN.
-test $(echo "$url" | head -c "$baseurllength") != "$baseurl" && printf '%s\15\12' "59 BAD REQUEST; $baseurl URLs only please." && exit
+test "$(echo "$url" | head -c "$baseurllength")" != "$baseurl" && printf '%s\15\12' "59 BAD REQUEST; $baseurl URLs only please." && exit
 ####End of request validation####
 
 # If it all looks good, find out what they want
-readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/gi' -e 's/%20/ /g' -e 's/\r$//g' -e 's/%3b/;/i')
+filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/gi' -e 's/%20/ /g' -e 's/\r$//g' -e 's/%3b/;/i')
 #                                                                                                    ^ ^ ^ ^ ^ ^
 #                                                                 curl fails without carriage return removal!!!!
+readonly filename
 
 ###WIP BELOW HERE####
 
@@ -38,16 +39,7 @@ readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/
 	/2*)
 	    printf '%s\15\12' "50 PERMANENT FAILURE; gophertype 2 CCSO not supported" && exit;;
 	/7*)
-	    printf '%s\15\12' "HTTP/1.0 200 OK" \
-		"Content-Type: text/html; charset=utf-8" \
-		"Date: $date" \
-		"Server: gopher to http gateway at $fqdn" \
-		"Connection: close" \
-		"" \
-		'<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">' \
-		'<title></title>' \
-		"<form action='$fqdn$filename' method='get'>" \
-		'<p>This is a searchable gopher index. Enter search keywords:<input type="text" name="httpsearch"></p></form>'
+	    printf '%s\15\12' "40 TEMPORARY FAILURE; This server does not support gopher type 7, yet. Will be addressed in future update."
 	    ;;
 	###START OF DUMB / NON-INTELLIGENT GOPHER TYPES###
 	/[04569IMPdghps]*)
