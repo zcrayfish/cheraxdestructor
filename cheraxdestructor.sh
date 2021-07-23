@@ -38,7 +38,7 @@ readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/
 	/2*)
 	    printf '%s\15\12' "50 PERMANENT FAILURE; gophertype 2 CCSO not supported" && exit;;
 	/7*)
-	    printf '%s\15\12' "40 TEMPORARY FAILURE; This server does not support gopher type 7, yet. Will be addressed in future update.
+	    printf '%s\15\12' "40 TEMPORARY FAILURE; This server does not support gopher type 7, yet. Will be addressed in future update."
 	    ;;
 	###START OF DUMB / NON-INTELLIGENT GOPHER TYPES###
 	/[04569IMPdghps]*)
