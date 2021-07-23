@@ -22,7 +22,7 @@ test "$?" != "0" && exit
 # Reject requests with garbage past the URL.
 test ! -z "$badclient" && printf '%s\15\12' "59 BAD REQUEST; Garbage past URL in request." && exit
 # See if request is for defined FQDN.
-test $(echo "$url" | head -c "$baseurllength") != "$baseurl" && printf '%s\15\12' "59 BAD REQUEST; $baseurl URLs only please." && exit
+test "$(echo "$url" | head -c "$baseurllength")" != "$baseurl" && printf '%s\15\12' "59 BAD REQUEST; $baseurl URLs only please." && exit
 ####End of request validation####
 
 # If it all looks good, find out what they want
