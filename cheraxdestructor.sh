@@ -38,16 +38,7 @@ readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/
 	/2*)
 	    printf '%s\15\12' "50 PERMANENT FAILURE; gophertype 2 CCSO not supported" && exit;;
 	/7*)
-	    printf '%s\15\12' "HTTP/1.0 200 OK" \
-		"Content-Type: text/html; charset=utf-8" \
-		"Date: $date" \
-		"Server: gopher to http gateway at $fqdn" \
-		"Connection: close" \
-		"" \
-		'<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">' \
-		'<title></title>' \
-		"<form action='$fqdn$filename' method='get'>" \
-		'<p>This is a searchable gopher index. Enter search keywords:<input type="text" name="httpsearch"></p></form>'
+	    printf '%s\15\12' "40 TEMPORARY FAILURE; This server does not support gopher type 7, yet. Will be addressed in future update.
 	    ;;
 	###START OF DUMB / NON-INTELLIGENT GOPHER TYPES###
 	/[04569IMPdghps]*)
