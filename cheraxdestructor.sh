@@ -10,6 +10,7 @@ readonly gophermap2gemini=/usr/local/bin/gophermap2gemini.awk
 
 readonly baseurl="gemini://$fqdn"
 #how many bytes are at the beginning of the URL?
+# shellcheck disable=SC2155
 readonly baseurllength="${#baseurl}"
 #readonly baseurllength=$((${#baseurl}-1))
 
