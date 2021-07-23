@@ -10,7 +10,6 @@ readonly gophermap2gemini=/usr/local/bin/gophermap2gemini.awk
 
 readonly baseurl="gemini://$fqdn"
 #how many bytes are at the beginning of the URL?
-# shellcheck disable=SC2155
 readonly baseurllength="${#baseurl}"
 #readonly baseurllength=$((${#baseurl}-1))
 
@@ -27,9 +26,10 @@ test $(echo "$url" | head -c "$baseurllength") != "$baseurl" && printf '%s\15\12
 ####End of request validation####
 
 # If it all looks good, find out what they want
-readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/gi' -e 's/%20/ /g' -e 's/\r$//g' -e 's/%3b/;/i')
+filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/gi' -e 's/%20/ /g' -e 's/\r$//g' -e 's/%3b/;/i')
 #                                                                                                    ^ ^ ^ ^ ^ ^
 #                                                                 curl fails without carriage return removal!!!!
+readonly filename
 
 ###WIP BELOW HERE####
 
