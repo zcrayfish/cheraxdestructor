@@ -26,9 +26,9 @@ test $(echo "$url" | head -c "$baseurllength") != "$baseurl" && printf '%s\15\12
 ####End of request validation####
 
 # If it all looks good, find out what they want
-readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/' -e 's/%20/ /' -e 's/\r$//')
-#                                                                                            ^ ^ ^ ^ ^ ^
-#                                                          curl fails without carriage return removal!!!!
+readonly filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/gi' -e 's/%20/ /g' -e 's/\r$//g' -e 's/%3b/;/i')
+#                                                                                                    ^ ^ ^ ^ ^ ^
+#                                                                 curl fails without carriage return removal!!!!
 
 ###WIP BELOW HERE####
 
