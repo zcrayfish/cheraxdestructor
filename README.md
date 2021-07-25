@@ -3,10 +3,10 @@ inetd or stunnel shell script to serve a gemini frontend to an existing gopher s
 
 **Prerequisites**:
 * busybox ash (or other suitable shell)
-* curl
+* curl (or an inetd-style gopher server)
 * [gophermap2gemini](https://github.com/jamestomasino/dotfiles-minimal/blob/master/bin/gophermap2gemini.awk)
 * stunnel or relayd (latter also requires inetd and isn't tested)
-* tls certificates (for stunnel or relayd)
+* tls certificate (for stunnel or relayd)
 
 **Installing**:
 * copy the cheraxdestructor.sh and gophermap2gemini.awk scripts to a directory of your choice (/usr/local/bin will be used in the rest of the documentation)
