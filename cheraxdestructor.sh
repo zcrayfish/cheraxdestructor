@@ -43,6 +43,10 @@ filename=$(echo "$url" | tail -c +$((${#baseurl}+1)) | sed -e 's/%2c/,/gi' -e 's
 #                                                                 curl fails without carriage return removal!!!!
 filename2=$(echo "$filename" | tail -c +3)
 readonly filename
+# Extract query string, if present, and export it in case if non-gophernicus gopherd
+QUERY_STRING="$(echo "$url" | grep "?" | cut -d? -f2-)"
+export QUERY_STRING
+export SEARCHREQUEST="$QUERY_STRING"
 
 ###WIP BELOW HERE####
 
@@ -52,7 +56,19 @@ readonly filename
 	/2*)
 	    printf '%s\15\12' "50 PERMANENT FAILURE; gophertype 2 CCSO not supported" && exit;;
 	/7*)
-	    printf '%s\15\12' "40 TEMPORARY FAILURE; This server does not support gopher type 7, yet. Will be addressed in future update."
+	    if [ -z "$QUERY_STRING" ]
+	      then printf '%s\15\12' "10 This is a searchable gopher index. Enter search keywords"
+	      else
+                mimetype="20 text/gemini; "
+                if [ "$usecurl" = "true" ] ; then
+                  xyzzy="$(curl -q --disable -s --output - "gopher://$fqdn:$port$filename" | awk -f $gophermap2gemini | \
+                         sed -e 's/=> gopher:\/\/'$fqdn':'$port'/=> gemini:\/\/'$fqdn'/g' )"
+                else
+                  # shellcheck disable=2086
+                  xyzzy="$(echo "$filename2" | ${gopherd} ${gopherd_options} | awk -f $gophermap2gemini | \
+                         sed -e 's/=> gopher:\/\/'$fqdn':'$port'/=> gemini:\/\/'$fqdn'/g' )"
+                fi
+	    fi
 	    ;;
 	###START OF DUMB / NON-INTELLIGENT GOPHER TYPES###
 	/[04569IMPdghps]*)
