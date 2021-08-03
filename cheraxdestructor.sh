@@ -7,11 +7,11 @@ readonly port=70
 #The full path to the gophermap2gemini.awk script
 readonly gophermap2gemini=/usr/local/bin/gophermap2gemini.awk
 #Use curl, or use the gopher daemon directly
-usecurl=false
+readonly usecurl=false
 #full path to gopher daemon
-gopherd=/usr/sbin/gophernicus
+readonly gopherd=/usr/sbin/gophernicus
 #command options to pass to the gopher daemon
-gopherd_options="-h $fqdn -nv -nf -np -f /srv/gopher/filters -e pdf=P -e webp=I -e eml=m -e uue=6 -o utf-8 -w 74"
+readonly gopherd_options="-h $fqdn -nv -nf -np -f /srv/gopher/filters -e pdf=P -e webp=I -e eml=m -e uue=6 -o utf-8 -w 74"
 ####End of configuration section, use caution if editing below this line####
 
 ### Export some environs to anything we run, could be useful
