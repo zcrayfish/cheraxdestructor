@@ -71,7 +71,7 @@ export SEARCHREQUEST="$QUERY_STRING"
 	    fi
 	    ;;
 	###START OF DUMB / NON-INTELLIGENT GOPHER TYPES###
-	/[04569IMPdghps]*)
+	/[04569IMPdghps';']*)
 	    case "$filename" in
 		/0/stylesheet.css)
 		    mimetype="20 text/css";;
@@ -103,7 +103,9 @@ export SEARCHREQUEST="$QUERY_STRING"
 		    mimetype="20 video/mp4";;
 		/s*)
 		    mimetype="20 application/octet-stream";;
-                /';'*.webm)
+		/';'*.mp4)
+		    mimetype="20 video/mp4";;
+		/';'*.webm)
 		    mimetype="20 video/webm";;
 	    esac
 	    #We now have enough information to pull in anything we're not converting to gemini markup
