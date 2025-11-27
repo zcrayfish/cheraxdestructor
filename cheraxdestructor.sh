@@ -18,6 +18,9 @@ readonly gopherd_options="-h $fqdn -nv -nf -np -f /srv/gopher/filters -e pdf=P -
 export REMOTE_HOST
 export REMOTE_PORT
 export REMOTE_ADDR="$REMOTE_HOST"
+export NCAT_REMOTE_ADDR
+export NCAT_LOCAL_ADDR
+export LOCAL_ADDR
 ###
 
 readonly baseurl="gemini://$fqdn"
